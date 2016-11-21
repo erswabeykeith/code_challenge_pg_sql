@@ -3,9 +3,15 @@ var app = express();
 var path = require('path');
 var port = process.env.PORT || 3000;
 var connectionString = "postgres://localhost:5432/sigma";
+var bodyParser = require('body-parser');
+var treats = require('./public/routes/treats');
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /*** Build out a module to manage our treats requests. ***/
 
+// Our routes
+app.use('/treats', treats);
 
 app.get('/', function(req, res) {
   res.sendFile(path.resolve('./server/public/views/index.html'));
